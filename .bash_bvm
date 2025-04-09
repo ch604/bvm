@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.0
+# v1.0.1
 # github.com/ch604/bvm
 bvm() {
 	local BVM_INSTALLDIR=_____
@@ -24,6 +24,7 @@ bvm() {
 			:)	echo "Option -$OPTARG requires an argument" && _bvm_help;;
 			\*)	_bvm_help;;
 		esac
+		# cause getopts to only be run once by exiting here
 		unset OPTARG OPTIND _opt
 		return 0
 	done

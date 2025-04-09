@@ -1,15 +1,15 @@
 # bvm
 bvm - bash version manager
 
-install and use various versions of bash for testing
+install and use various versions of bash for testing, written in bash!
 
-# how to install
+# how to install or update
 ```
 bash < <(curl -s https://raw.githubusercontent.com/ch604/bvm/refs/heads/main/install.sh)
 ```
 
 # how to use
-at first run, source the include file
+at first run, source your linux user's .bashrc
 ```
 source ~/.bashrc
 ```
