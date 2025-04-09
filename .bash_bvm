@@ -14,8 +14,8 @@ bvm() {
 	while getopts ":hlLa:r:e:" _opt; do
 		case $_opt in
 			h)	_bvm_help;;
-			l)	_bvm_list_installed;;
-			L)	_bvm_list_available;;
+			l)	_bvm_list_installed | column;;
+			L)	_bvm_list_available | column;;
 			a)	_bvm_add_version "$OPTARG";;
 			r)	_bvm_remove_version "$OPTARG";;
 			e)	shift $((OPTIND-1))

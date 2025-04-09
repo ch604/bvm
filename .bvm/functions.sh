@@ -41,12 +41,12 @@ _bvm_add_version() {
 		return 1
 	elif _bvm_list_installed | grep -qx "$1"; then
 		echo -e "Bash version $1 is already installed!\n\nInstalled versions:\n"
-		_bvm_list_installed
+		_bvm_list_installed | column
 		return 1
 	fi
 	local _list _build_output
 	_list=$(_bvm_list_available)
-	if ! grep -qx "$1" "$_list"; then
+	if ! grep -qx "$1" <<< "$_list"; then
 		echo -e "Bash version $1 is not available from ftp.gnu.org!\n\nAvailable versions:\n"
 		echo "$_list"
 		return 1
@@ -73,7 +73,7 @@ _bvm_remove_version() {
 		return 1
 	elif ! _bvm_list_installed | grep -qx "$1"; then
 		echo -e "Bash version $1 is not installed!\n\nInstalled versions:\n"
-		_bvm_list_installed
+		_bvm_list_installed | column
 		return 1
 	fi
 	if [ -d "$BVM_INSTALLDIR/bash-$1" ]; then
@@ -90,6 +90,5 @@ _bvm_list_installed() {
 _bvm_list_available() {
 	curl -s https://ftp.gnu.org/gnu/bash/ | \
 	grep -o '<a href="bash-[0-9][^"]*.tar.gz"' | \
-	sed -e 's/^<a href="bash-//' -e 's/.tar.gz"$//' | \
-	column
+	sed -e 's/^<a href="bash-//' -e 's/.tar.gz"$//'
 }
