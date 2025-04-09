@@ -1,5 +1,4 @@
-# bvm
-bvm - bash version manager
+# bvm - bash version manager
 
 install and use various versions of bash for testing, written in bash!
 
