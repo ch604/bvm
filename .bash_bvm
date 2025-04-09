@@ -1,0 +1,30 @@
+#!/bin/bash
+# bvm - bash version manager
+# v1.0.0
+# github.com/ch604/bvm
+bvm() {
+	local BVM_INSTALLDIR=_____
+	local BVM_FUNC="$BVM_INSTALLDIR/functions.sh"
+	if [ ! -f "$BVM_FUNC" ]; then
+		echo "I can't find functions file at $BVM_FUNC! Please reinstall bvm."
+		return 1
+	fi
+	# shellcheck disable=SC1090
+	source "$BVM_FUNC"
+	while getopts ":hlLa:r:e:" _opt; do
+		case $_opt in
+			h)	_bvm_help;;
+			l)	_bvm_list_installed;;
+			L)	_bvm_list_available;;
+			a)	_bvm_add_version "$OPTARG";;
+			r)	_bvm_remove_version "$OPTARG";;
+			e)	shift $((OPTIND-1))
+				_bvm_enter "$OPTARG" "$@";;
+			\?)	echo "Invalid option: -$OPTARG" && _bvm_help;;
+			:)	echo "Option -$OPTARG requires an argument" && _bvm_help;;
+			\*)	_bvm_help;;
+		esac
+		unset OPTARG OPTIND _opt
+		return 0
+	done
+}
