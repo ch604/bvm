@@ -36,7 +36,7 @@ _bvm_enter() {
 }
 
 _bvm_add_version() {
-	if [ -n "$1" ]; then
+	if [[ -z "$1" ]]; then
 		_bvm_help
 		return 1
 	elif _bvm_list_installed | grep -qx "$1"; then
@@ -68,7 +68,7 @@ _bvm_add_version() {
 }
 
 _bvm_remove_version() {
-	if [ -z "$1" ]; then 
+	if [[ -z "$1" ]]; then 
 		_bvm_help
 		return 1
 	elif ! _bvm_list_installed | grep -qx "$1"; then
