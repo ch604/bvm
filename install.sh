@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.1
+# v1.0.2
 # github.com/ch604/bvm
 
 set -u -o pipefail
@@ -11,7 +11,7 @@ echo "Installing BVM to $BVM_INSTALLDIR ..."
 
 # make and populate our install dir
 mkdir -p "$BVM_INSTALLDIR"
-wget -q https://raw.githubusercontent.com/ch604/bvm/refs/heads/main/.bvm/functions.sh -P "$BVM_INSTALLDIR"
+wget -q https://raw.githubusercontent.com/ch604/bvm/refs/heads/main/functions.sh -P "$BVM_INSTALLDIR"
 
 # make our rc file and include it
 wget -q https://raw.githubusercontent.com/ch604/bvm/refs/heads/main/.bash_bvm -P "$BVM_INSTALLDIR"
