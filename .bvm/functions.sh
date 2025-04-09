@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.0
+# v1.0.1
 # github.com/ch604/bvm
 
 _bvm_help() {
@@ -55,15 +55,17 @@ _bvm_add_version() {
 	wget -q "https://ftp.gnu.org/gnu/bash/bash-$1.tar.gz" -P "$BVM_INSTALLDIR"
 	tar -zxf "$BVM_INSTALLDIR/bash-$1.tar.gz" -C "$BVM_INSTALLDIR"
 	rm -f "${BVM_INSTALLDIR:?}/bash-${1:?}.tar.gz"
-	pushd "$BVM_INSTALLDIR/bash-$1" || return 1
+	pushd "$BVM_INSTALLDIR/bash-$1" > /dev/null || return 1
 	_build_output=$(mktemp)
 	(./configure && make) &> "$_build_output"
-	popd || return 1
+	popd > /dev/null || return 1
 	if [ -x "$BVM_INSTALLDIR/bash-$1/bash" ]; then
 		echo "Success! Run \`bvm -e $1\` to enter this shell."
 		rm -f "${_build_output:?}"
+		return 0
 	else
-		echo "Failure! I couldn't find $BVM_INSTALLDIR/bash-$1/bash. Please tail $_build_output for build details."
+		echo "Failure! I couldn't find $BVM_INSTALLDIR/bash-$1/bash. Please check $_build_output for build details."
+		return 1
 	fi
 }
 
