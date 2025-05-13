@@ -55,10 +55,10 @@ _bvm_add_version() {
 	wget -q "https://ftp.gnu.org/gnu/bash/bash-$1.tar.gz" -P "$BVM_INSTALLDIR"
 	tar -zxf "$BVM_INSTALLDIR/bash-$1.tar.gz" -C "$BVM_INSTALLDIR"
 	rm -f "${BVM_INSTALLDIR:?}/bash-${1:?}.tar.gz"
-	pushd "$BVM_INSTALLDIR/bash-$1" > /dev/null || return 1
+	pushd "$BVM_INSTALLDIR/bash-$1" &> /dev/null || return 1
 	_build_output=$(mktemp)
 	(./configure && make) &> "$_build_output"
-	popd > /dev/null || return 1
+	popd &> /dev/null || return 1
 	if [ -x "$BVM_INSTALLDIR/bash-$1/bash" ]; then
 		echo "Success! Run \`bvm -e $1\` to enter this shell."
 		rm -f "${_build_output:?}"
