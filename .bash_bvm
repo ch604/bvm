@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.2
+# v1.0.3
 # github.com/ch604/bvm
 bvm() {
 	local BVM_INSTALLDIR=_____
@@ -11,6 +11,10 @@ bvm() {
 	fi
 	# shellcheck disable=SC1090
 	source "$BVM_FUNC"
+	if [ -z "$1" ]; then
+		_bvm_help
+		return 1
+	fi
 	while getopts ":hlLa:r:e:" _opt; do
 		case $_opt in
 			h)	_bvm_help;;
@@ -20,9 +24,9 @@ bvm() {
 			r)	_bvm_remove_version "$OPTARG";;
 			e)	shift $((OPTIND-1))
 				_bvm_enter "$OPTARG" "$@";;
-			\?)	echo "Invalid option: -$OPTARG" && _bvm_help;;
-			:)	echo "Option -$OPTARG requires an argument" && _bvm_help;;
-			\*)	_bvm_help;;
+			\?)	echo "Invalid option: -$OPTARG"; _bvm_help; return 1;;
+			:)	echo "Option -$OPTARG requires an argument"; _bvm_help; return 1;;
+			\*)	_bvm_help; return 1;;
 		esac
 		# cause getopts to only be run once by exiting here
 		unset OPTARG OPTIND _opt

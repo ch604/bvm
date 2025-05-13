@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.2
+# v1.0.3
 # github.com/ch604/bvm
 
 _bvm_help() {
