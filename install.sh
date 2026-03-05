@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.3
+# v1.0.4
 # github.com/ch604/bvm
 
 set -u -o pipefail

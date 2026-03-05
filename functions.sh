@@ -1,6 +1,6 @@
 #!/bin/bash
 # bvm - bash version manager
-# v1.0.3
+# v1.0.4
 # github.com/ch604/bvm
 
 _bvm_help() {
@@ -86,7 +86,7 @@ _bvm_remove_version() {
 
 _bvm_list_installed() {
 	find "$BVM_INSTALLDIR" -maxdepth 1 -type d -name "bash-[0-9]*" -printf "%f\n" | \
-	awk -F- '{print $NF}'
+	sed -e 's/^bash-//'
 }
 
 _bvm_list_available() {
